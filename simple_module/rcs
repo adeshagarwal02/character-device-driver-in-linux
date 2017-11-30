@@ -1,0 +1,58 @@
+#! /bin/bash
+for file in $(ls *.c) $(ls *.h)
+do
+	ci $file
+done
+for file in $(ls *.c,v) $(ls *.h,v)
+do
+	co $file
+done
+remove()
+{
+	read -n1 -p "Do you want to remove driver (y/n):"
+	if [ $REPLY == y ]
+	then
+		rmmod mymodule.ko
+		lsmod
+		read
+		cat /proc/devices
+		read
+		dmesg
+		read
+		make clean
+	fi
+}
+insert()
+{
+	insmod ./modules/mymodule.ko
+	lsmod
+	read
+	cat /proc/devices
+	read 
+	dmesg
+	read
+	remove
+}
+if ( make )
+then
+	read -n1 -p "Do you want to insert(y/n):"
+	if [ $REPLY == y ]
+	then
+		insert
+	else 
+		echo "Good Bye"
+	fi
+else
+	echo "Never mind ..."
+fi
+read -n1 -p "Do you want to edit file (y/n)"
+if [ $REPLY == y ]
+then
+	for file in $(ls *.c,v) $(ls *.h,v)
+	do
+		co -l $file 
+  	 done
+ else
+	 echo "Never mined...."
+ fi
+

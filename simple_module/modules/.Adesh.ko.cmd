@@ -1,0 +1,1 @@
+cmd_/home/adesh/fight/review/ch_driver/simple_module/Adesh.ko := ld -r -m elf_x86_64 -T ./scripts/module-common.lds --build-id  -o /home/adesh/fight/review/ch_driver/simple_module/Adesh.ko /home/adesh/fight/review/ch_driver/simple_module/Adesh.o /home/adesh/fight/review/ch_driver/simple_module/Adesh.mod.o ;  true
