@@ -1,0 +1,1 @@
+cmd_/home/adesh/fight/review/ch_driver/dd_register/Module.o := ld -m elf_x86_64   -r -o /home/adesh/fight/review/ch_driver/dd_register/Module.o /home/adesh/fight/review/ch_driver/dd_register/init.o /home/adesh/fight/review/ch_driver/dd_register/clean.o 
