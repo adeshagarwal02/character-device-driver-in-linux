@@ -1,10 +1,15 @@
-head	1.1;
+head	1.2;
 access;
 symbols;
 locks
-	root:1.1; strict;
+	root:1.2; strict;
 comment	@ * @;
 
+
+1.2
+date	2017.12.04.07.00.51;	author root;	state Exp;
+branches;
+next	1.1;
 
 1.1
 date	2017.11.30.18.25.43;	author root;	state Exp;
@@ -16,13 +21,23 @@ desc
 @@
 
 
+1.2
+log
+@*** empty log message ***
+@
+text
+@#include<linux/module.h>
+#include<linux/kernel.h>
+#include<linux/sched.h>
+MODULE_LICENSE("GPL");
+MODULE_AUTHOR("Adesh Agarwal");
+@
+
+
 1.1
 log
 @Initial revision
 @
 text
-@#include<linux/module.h>
-#include<linux/kernel.h>
-MODULE_LICENSE("GPL");
-MODULE_AUTHOR("Adesh Agarwal");
+@d3 1
 @

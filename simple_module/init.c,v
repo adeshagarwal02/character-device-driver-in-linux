@@ -1,10 +1,20 @@
-head	1.6;
+head	1.8;
 access;
 symbols;
 locks
-	root:1.6; strict;
+	root:1.8; strict;
 comment	@ * @;
 
+
+1.8
+date	2017.12.04.07.02.12;	author root;	state Exp;
+branches;
+next	1.7;
+
+1.7
+date	2017.12.04.07.00.49;	author root;	state Exp;
+branches;
+next	1.6;
 
 1.6
 date	2017.11.30.19.04.30;	author root;	state Exp;
@@ -41,14 +51,14 @@ desc
 @@
 
 
-1.6
+1.8
 log
 @*** empty log message ***
 @
 text
 @#include"header.h"
-static int m;
-static char *h;
+static int m=1;
+static char *h = "Adesh Agarwal";
 module_param(m,int,S_IRUGO);
 module_param(h,charp,S_IRUGO);
 static int __init func(void)
@@ -56,9 +66,34 @@ static int __init func(void)
 	printk(KERN_INFO"Hello Kernel! Lets gets started\n");
 	printk(KERN_INFO"Number send %d\n",m);
 	printk(KERN_INFO"You want to say %s\n",h);
+	printk(KERN_INFO"The process is %s and pid is %d\n",current->comm,current->pid);
 	return 0;
 }
 module_init(func);
+@
+
+
+1.7
+log
+@*** empty log message ***
+@
+text
+@d11 1
+a11 1
+	printk(KERN_INFO"The process is %s\n",current->comm);
+@
+
+
+1.6
+log
+@*** empty log message ***
+@
+text
+@d2 2
+a3 2
+static int m;
+static char *h;
+d11 1
 @
 
 

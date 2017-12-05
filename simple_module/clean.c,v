@@ -1,10 +1,15 @@
-head	1.1;
+head	1.2;
 access;
 symbols;
 locks
-	root:1.1; strict;
+	root:1.2; strict;
 comment	@ * @;
 
+
+1.2
+date	2017.12.04.07.05.24;	author root;	state Exp;
+branches;
+next	1.1;
 
 1.1
 date	2017.11.30.18.25.40;	author root;	state Exp;
@@ -16,15 +21,25 @@ desc
 @@
 
 
-1.1
+1.2
 log
-@Initial revision
+@*** empty log message ***
 @
 text
 @#include"header.h"
 static void __exit clean(void)
 {
 	printk(KERN_INFO"Bye Kernel\n");
+	printk(KERN_INFO"The process is %s, pid is %d\n",current->comm,current->pid);
 }
 module_exit(clean);
+@
+
+
+1.1
+log
+@Initial revision
+@
+text
+@d5 1
 @

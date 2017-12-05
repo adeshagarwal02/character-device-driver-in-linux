@@ -7,8 +7,8 @@ for file in $(ls *.c,v) $(ls *.h,v)
 do
 	co $file
 done
-value=$1
-Value=$2
+#value=$1
+#Value=$2
 remove()
 {
 	read -n1 -p "Do you want to remove driver (y/n):"
@@ -26,7 +26,7 @@ remove()
 }
 insert()
 {
-	insmod ./modules/Adesh.ko m=$value h=$Value
+	insmod ./modules/Adesh.ko ##########m=$value h=$Value
 	lsmod
 	read
 	cat /proc/devices
