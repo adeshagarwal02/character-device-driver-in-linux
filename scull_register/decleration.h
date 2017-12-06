@@ -18,8 +18,8 @@
 #define NOREG 8
 #endif 
 
-#ifndef REGSIZ
-#define REGSIZ 4
+#ifndef REGSIZE
+#define REGSIZE 4
 #endif
 
 #ifndef DEVSIZE
@@ -30,7 +30,27 @@
 #define DATASIZE 0
 #endif 
 
+#define DEBUG 0
+
+typedef struct Qset
+{
+	struct Qset *next;
+	void **data;
+
+}Qset;
+typedef struct Dev
+{
+	struct Qset *first;
+	struct cdev c_dev;
+	int noreg;
+	int regsize;
+	int devsize;
+	int datasize;
+}Dev;
 extern unsigned int majorno;
 extern unsigned int minorno;
 extern unsigned int nod;
 extern dev_t dev;
+extern Dev *device;
+extern int noreg,regsize,devsize,datasize;
+
