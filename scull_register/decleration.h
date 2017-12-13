@@ -58,8 +58,8 @@ extern int noreg,regsize,devsize,datasize;
 /*------------------------------------struct file_operations--------------------------------------*/
 
 int open_cdev(struct inode*,struct file *);
-size_t write_cdev(struct file *,const char __user *,size_t,loff_t *);
-size_t read_cdev(struct file *,char __user *,size_t,loff_t *);
+ssize_t write_cdev(struct file *,const char __user *,size_t,loff_t *);
+ssize_t read_cdev(struct file *,char __user *,size_t,loff_t *);
 int release_cdev(struct inode*,struct file *);
 
 /*------------------------------------Additional functions----------------------------------------*/
