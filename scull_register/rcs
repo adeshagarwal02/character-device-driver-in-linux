@@ -1,0 +1,64 @@
+#! /bin/bash
+node()
+{
+	read -p "Please enter the major no" major
+	mknod cdev_A21988 c $major 0
+	echo "Node is succesfuly made"
+	echo
+}
+application()
+{
+	if ( make -C ./Application/ )
+	then
+		read -n1 -p "Do you want to make node (y/n)"
+		if [ $REPLY == 'y' ]
+		then
+			node
+			read -n1 -p "Do you want to run application(y/n):"
+			if [ $REPLY == 'y' ]
+			then
+				./Application/apps
+			fi
+		fi
+	fi
+}
+remove()
+{
+	rmmod Adesh
+	read
+	cat /proc/devices
+	read
+	dmesg
+}
+insert()
+{
+	insmod modules/Adesh.ko
+	cat /proc/devices
+	read
+	dmesg
+	echo
+	application
+	read -n1 -p "Do you want to remove device (y/n):"
+	if [ $REPLY == 'y' ]
+	then 
+		echo
+		remove
+	else
+		echo "Adesh module is not removed"
+		echo
+	fi
+}
+if ( make )
+then
+	echo "make success"
+	echo
+	read -n1 -p "Do you want to insert device (y/n):"
+	if [ $REPLY == 'y' ]
+	then
+		echo
+		insert
+	else
+		echo "bye have a nice day"
+		echo
+	fi
+fi
