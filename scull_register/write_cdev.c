@@ -36,10 +36,10 @@ ssize_t write_cdev(struct file *filep,const char __user *buff,size_t size,loff_t
 			}
 			noc += tbyte -ret;
 			lsize -= tbyte-ret;
-			#ifdef DEBUG
-				printk(KERN_INFO"lsize: %d",lsize);
+/*			#ifdef DEBUG
+				printk(KERN_INFO"lsize: %ld",lsize);
 			#endif
-			if(lsize>0 && lsize<tbyte)
+*/			if(lsize>0 && lsize<tbyte)
 				tbyte = lsize;
 			else if(lsize<=0)
 				break;

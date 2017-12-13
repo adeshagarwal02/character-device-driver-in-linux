@@ -27,7 +27,7 @@
 #endif 
 
 #ifndef DATASIZE
-#define DATASIZE 0
+#define DATASIZE 1024
 #endif 
 
 #define DEBUG 0

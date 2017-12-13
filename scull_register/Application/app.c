@@ -11,9 +11,9 @@ int main()
 		switch (choice)
 		{
 			case 1:
-				printf("\t\ta.__open_write__\n");
-				printf("\t\tb.__open_read__\n");
-				printf("\t\tz.__Back__\n");
+				printf("\ta.__open_write__\n");
+				printf("\tb.__open_read__\n");
+				printf("\tz.__Back__\n");
 				scanf(" %c",&o_cdev);
 				switch(o_cdev)
 				{

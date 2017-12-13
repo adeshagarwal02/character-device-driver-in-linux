@@ -1,8 +1,17 @@
 #! /bin/bash
+check()
+{
+	read
+	cat /proc/devices
+	read
+	dmesg
+	read
+}
 node()
 {
-	read -p "Please enter the major no" major
+	read -p "Please enter the major no:" major
 	mknod cdev_A21988 c $major 0
+	echo
 	echo "Node is succesfuly made"
 	echo
 }
@@ -10,33 +19,40 @@ application()
 {
 	if ( make -C ./Application/ )
 	then
-		read -n1 -p "Do you want to make node (y/n)"
+		echo
+		read -n1 -p "Do you want to make node (y/n):"
 		if [ $REPLY == 'y' ]
 		then
+			echo
 			node
 			read -n1 -p "Do you want to run application(y/n):"
 			if [ $REPLY == 'y' ]
 			then
+				echo
 				./Application/apps
+			else
+				echo
+				echo "Application is not running"
 			fi
 		fi
+		echo
+		rm -rf ./Application/*.o
 	fi
 }
 remove()
 {
 	rmmod Adesh
-	read
-	cat /proc/devices
-	read
-	dmesg
+	check
+	make clean
+	rm -rf modules.order
+	rm -rf Module.symvers
 }
 insert()
 {
 	insmod modules/Adesh.ko
-	cat /proc/devices
-	read
-	dmesg
-	echo
+	echo 
+	lsmod
+	check
 	application
 	read -n1 -p "Do you want to remove device (y/n):"
 	if [ $REPLY == 'y' ]
@@ -50,7 +66,7 @@ insert()
 }
 if ( make )
 then
-	echo "make success"
+	echo "make success..............."
 	echo
 	read -n1 -p "Do you want to insert device (y/n):"
 	if [ $REPLY == 'y' ]
@@ -58,7 +74,8 @@ then
 		echo
 		insert
 	else
-		echo "bye have a nice day"
+		echo
+		echo "Bye have a nice day"
 		echo
 	fi
 fi
