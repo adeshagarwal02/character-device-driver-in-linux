@@ -2,8 +2,7 @@ INSTALL_DIR=modules
 ifneq (${KERNELRELEASE},)
     obj-m :=Adesh.o
 
-Adesh-objs := init.o clean.o 
-
+Adesh-objs := init.o clean.o open_cdev.o release_cdev.o
 else
     KERNELDIR ?= /lib/modules/$(shell uname -r)/build
     PWD := $(shell pwd)

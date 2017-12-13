@@ -32,11 +32,11 @@ static int __init func(void)
 	{
 		ret = alloc_chrdev_region(&dev,minorno,nod,DEVNAME);
 		#ifdef DEBUG
-			printk(KERN_INFO"Inside alloc_cherdev_region");
+			printk(KERN_INFO"Inside alloc_chrdev_region");
 		#endif	
 		if(ret == -1)
 		{
-			printk(KERN_INFO"alloc_chrdev_region()\n");
+			printk(KERN_INFO"error:alloc_chrdev_region()\n");
 			goto OUT;
 		}
 	}
@@ -44,7 +44,8 @@ static int __init func(void)
 //	minorno = MINOR(dev);
 	device = (Dev *)kmalloc(sizeof(Dev)*nod,GFP_KERNEL);
 	memset(device,'\0',sizeof(Dev)*nod);
-	printk(KERN_INFO"device no = %d with major no = %d\n",dev,majorno);
+	printk(KERN_INFO"Device no: %d",dev);
+	printk(KERN_INFO"Major no: %d",majorno);
 	for(i=0;i<nod;i++)
 	{
 		device[i].regsize = regsize;
@@ -57,14 +58,18 @@ static int __init func(void)
 		if(ret == -1)
 		{
 			#ifdef DEBUG
-				printk(KERN_INFO"cdev_add()failed");
+				printk(KERN_INFO"error:cdev_add()failed");
 			#endif	
-			goto OUT;
+			goto unregister;
 
 		}
-
+		#ifdef DEBUG
+			printk(KERN_INFO"Minor no: %d\n",i);
+		#endif	
 	}
 	return 0;
+unregister:
+	unregister_chrdev_region(dev,nod);
 OUT:
 	return -1;
 }

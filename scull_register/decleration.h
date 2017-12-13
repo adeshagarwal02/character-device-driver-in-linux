@@ -47,10 +47,22 @@ typedef struct Dev
 	int devsize;
 	int datasize;
 }Dev;
+
 extern unsigned int majorno;
 extern unsigned int minorno;
 extern unsigned int nod;
 extern dev_t dev;
 extern Dev *device;
 extern int noreg,regsize,devsize,datasize;
+
+/*------------------------------------struct file_operations--------------------------------------*/
+
+int open_cdev(struct inode*,struct file *);
+size_t write_cdev(struct file *,const char __user *,size_t,loff_t *);
+size_t read_cdev(struct file *,char __user *,size_t,loff_t *);
+int release_cdev(struct inode*,struct file *);
+
+/*------------------------------------Additional functions----------------------------------------*/
+
+Qset *crate_scull(size_t);
 

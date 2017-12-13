@@ -5,4 +5,7 @@
 #include<linux/types.h>
 #include<linux/cdev.h>
 #include<linux/slab.h>
+#include<linux/uaccess.h>
+MODULE_AUTHOR("Adesh Agarwal");
 MODULE_LICENSE("GPL");
+
