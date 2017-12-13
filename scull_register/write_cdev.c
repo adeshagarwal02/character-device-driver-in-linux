@@ -2,8 +2,8 @@
 #include"decleration.h"
 size_t write_cdev(struct file *filep,const char __user *buff,size_t size,loff_t *loffp)
 {
-	size_t noc;
-	int tbyte;
+	size_t noc,lsize;
+	int tbyte,i;
 	unsigned long ret;
 	Dev *ldev;
 	Qset *lqset;

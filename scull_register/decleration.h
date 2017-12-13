@@ -64,5 +64,5 @@ int release_cdev(struct inode*,struct file *);
 
 /*------------------------------------Additional functions----------------------------------------*/
 
-Qset *crate_scull(size_t);
+Qset *create_scull(size_t);
 
