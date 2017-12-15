@@ -46,7 +46,10 @@ ssize_t write_cdev(struct file *filep,const char __user *buff,size_t size,loff_t
 		}
 		lqset = lqset->next;
 	}
+	ldev->datasize = noc;
+
 	#ifdef DEBUG
+		printk(KERN_INFO"datasize: %d",ldev->datasize);
 		printk(KERN_INFO"END: %s",__func__);
 	#endif
 	return noc;
