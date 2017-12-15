@@ -29,7 +29,7 @@ application()
 			if [ $REPLY == 'y' ]
 			then
 				echo
-				./Application/apps
+				./Application/Apps
 			else
 				echo
 				echo "Application is not running"

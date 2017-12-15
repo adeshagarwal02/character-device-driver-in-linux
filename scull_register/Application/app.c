@@ -48,6 +48,10 @@ int main()
 				if(rfd != -1)
 					close_user(rfd);
 				break;
+			case 5:
+				if(rfd != -1)
+					printf("Now the position is %d\n",lseek_user(rfd));
+				break;
 			case 0:
 				printf("\t\t__Application_closed__\n");
 				exit(EXIT_SUCCESS);

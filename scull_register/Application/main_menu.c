@@ -8,6 +8,7 @@ int main_menu(void)
 	printf("\t\t2.__Write_device__\n");
 	printf("\t\t3.__read_device__\n");
 	printf("\t\t4.__close_device__\n");
+	printf("\t\t5.__lseek_device__\n");
 	printf("\t\t0.__Exit_application__\n");
 	printf("\tPlease enter your choice:");
 	scanf("%d",&choice);
