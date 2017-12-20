@@ -5,13 +5,17 @@ ssize_t read_cdev(struct file *filep,char __user *buff,size_t size,loff_t *loffp
 	size_t lsize,ret,fsize;
 	Qset *lqset;
 	Dev *ldev;
-	int j,i,k,noi;
+	int j,i,k,noi,count,rem;
 	#ifdef DEBUG
 		printk(KERN_INFO"Begin: %s",__func__);
 	#endif
 	j=i=k=0;
 	ldev = NULL;
+	if(size > (ldev->devsize))
+		size = ldev->devsize;
 	lsize = size;
+	if(lsize > (ldev->datasize))
+		lsize = ldev->datasize;
 	ldev = filep->private_data;
 	if(!ldev)
 	{
@@ -20,16 +24,32 @@ ssize_t read_cdev(struct file *filep,char __user *buff,size_t size,loff_t *loffp
 			goto out;
 		#endif
 	}
-	if(lsize > (ldev->datasize))
-		lsize = ldev->datasize;
 	lqset = ldev->first;
-	fsize = ldev->regsize;
 	noi = lsize /((ldev->noreg)*(ldev->regsize));
 	if(lsize %((ldev->noreg)*(ldev->regsize)))
 		noi++;
+	count = filep->f_pos/((ldev->noreg)*(ldev->regsize));
+	while(count)
+	{
+		lqset = lqset->next;
+		count--;
+	}
+	lsize =lsize - filep->f_pos;
+	#ifdef DEBUG
+		printk(KERN_INFO"lsize: %ld",lsize);
+	#endif
+	fsize = ldev->regsize;
+	rem = filep->f_pos %((ldev->noreg)*(ldev->regsize));
+	j = rem/(ldev->regsize);
+	k = j%(ldev->regsize);
+	#ifdef DEBUG
+		printk(KERN_INFO"filep->f_pos: %lld",filep->f_pos);
+	#endif
+	
 	while(lsize)
 	{
-		ret = __copy_to_user(buff+i,lqset->data[j],fsize);
+		ret = __copy_to_user(buff+i,lqset->data[j]+k,fsize-k);
+		printk(KERN_INFO"copy_to: %ld",fsize-k);
 		if(ret)
 		{
 			#ifdef DEBUG
@@ -52,6 +72,7 @@ ssize_t read_cdev(struct file *filep,char __user *buff,size_t size,loff_t *loffp
 		}
 		else if(lsize < 0)
 			lsize = 0;
+		k = 0;
 
 	}
 	#ifdef DEBUG
